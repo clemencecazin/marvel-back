@@ -21,7 +21,7 @@ app.get("/comics", (req, res) => {
             // console.log(response.data);
             const comics = response.data;
 
-            res.json({ comics });
+            res.status(200).json({ comics });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -30,27 +30,48 @@ app.get("/comics", (req, res) => {
     getComics();
 });
 
-app.get("/characters", (req, res) => {
-    const getComics = async () => {
+app.get("/comics", (req, res) => {
+    const getComicsSearch = async () => {
         try {
+            const resultSearch = new RegExp(req.query.resultSearch, "i");
             const response = await axios.get(
-                `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}`
+                `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}&title=${resultSearch}`
+            );
+
+            // console.log(response.data);
+            const comics = response.data;
+
+            res.status(200).json({ comics });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    };
+
+    getComicsSearch();
+});
+
+app.get("/characters", (req, res) => {
+    const getCharacters = async () => {
+        try {
+            const limit = req.query.limit || 100; // On assigne à limit la query qui a été rentré côté front
+            const response = await axios.get(
+                `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}&limit=${limit}`
             );
 
             // console.log(response.data);
             const characters = response.data;
 
-            res.json({ characters });
+            res.status(200).json({ characters });
         } catch (error) {
-            console.log(error.message);
+            res.status(400).json(error.message);
         }
     };
 
-    getComics();
+    getCharacters();
 });
 
 app.get("/comics/:characterId", (req, res) => {
-    const getComics = async () => {
+    const getCharacterId = async () => {
         try {
             const characterId = req.params.characterId;
             const response = await axios.get(
@@ -60,13 +81,13 @@ app.get("/comics/:characterId", (req, res) => {
             console.log(response.data);
             const characters = response.data;
 
-            res.json({ characters });
+            res.status(200).json({ characters });
         } catch (error) {
-            console.log(error.message);
+            res.status(400).json(error.message);
         }
     };
 
-    getComics();
+    getCharacterId();
 });
 
 app.all("*", (req, res) => {
