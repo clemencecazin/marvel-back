@@ -38,8 +38,11 @@ app.get("/characters", (req, res) => {
         try {
             const limit = req.query.limit || 100; // On assigne à limit la query qui a été rentré côté front
             const skip = req.query.skip || 0;
+
+            const resultSearch = req.query.name;
+
             const response = await axios.get(
-                `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}&skip=${skip}&limit=${limit}`
+                `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.MARVEL_API_KEY}&name=${resultSearch}&skip=${skip}&limit=${limit}`
             );
 
             // console.log(response.data);
