@@ -29,7 +29,7 @@ router.post("/user/signup", async (req, res) => {
                 );
                 const token = uid2(64);
                 // Step 2 : create new user
-                const newUser = new User({
+                const newUser = new UserMarvel({
                     email: req.fields.email,
                     account: {
                         username: req.fields.username,
