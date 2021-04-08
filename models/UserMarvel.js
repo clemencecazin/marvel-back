@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const User = mongoose.model("User", {
+const UserMarvel = mongoose.model("UserMarvel", {
     email: {
         unique: true, // Je peux rentrer un  user que si cet e-mail n'existe pas
         type: String,
@@ -16,4 +16,4 @@ const User = mongoose.model("User", {
     salt: String,
 });
 
-module.exports = User;
+module.exports = UserMarvel;

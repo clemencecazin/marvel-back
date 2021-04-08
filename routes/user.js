@@ -6,13 +6,13 @@ const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 
-const User = require("../models/User");
+const UserMarvel = require("../models/UserMarvel");
 
 // SIGN  UP
 
 router.post("/user/signup", async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.fields.email });
+        const user = await UserMarvel.findOne({ email: req.fields.email });
 
         if (!user) {
             // If user doesn't exist
@@ -67,7 +67,7 @@ router.post("/user/signup", async (req, res) => {
 
 router.post("/user/login", async (req, res) => {
     try {
-        const loginUser = await User.findOne({ email: req.fields.email });
+        const loginUser = await UserMarvel.findOne({ email: req.fields.email });
 
         // If user is known thanks to his email
         if (loginUser) {
